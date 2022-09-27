@@ -1,5 +1,5 @@
 import os
-root = "zipper"
+root = "/Users/ibyeong-gwon/Desktop/data/experiments"
 files = {}
 walk = [root]
 tmp = []
@@ -11,7 +11,7 @@ while walk:
         (walk if os.path.isdir(i) else tmp).append(i)
     files[folder] = tmp
     tmp = []
-print(files.keys())
+# print(files.keys())
 # print(files.values())
 for x in files.keys():
     if len(files[x]):
