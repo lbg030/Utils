@@ -11,4 +11,6 @@ for defect in ['bz','chem','hz','yd']:
         with open(path + f"{defect}_{type}_experiment9.yaml") as f:
             file = yaml.load(f, Loader=yaml.FullLoader)
             save_dic[defect][type].extend(file[type])
+
+print(len(save_dic['bz']))
             
