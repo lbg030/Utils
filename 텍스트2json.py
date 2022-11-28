@@ -3,7 +3,7 @@ from pathlib import Path
 from collections import defaultdict
 
 
-data_dir = "/Users/ibyeong-gwon/Downloads/test"
+data_dir = "/Users/ibyeong-gwon/Downloads/train"
 file_list = []
 
 for path in Path(data_dir).glob(f'*') : 
