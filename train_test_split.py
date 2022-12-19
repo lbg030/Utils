@@ -7,14 +7,6 @@ def createFolder(directory):
             os.makedirs(directory)
     except OSError:
         print ('Error: Creating directory. ' +  directory)
- 
-## hz bz chem yd
-## 1732 448 330 169 
-## 12 3.5 3 1.5 -> 20
-
-## -> 
-
-
 
 dir_name = "/Users/ibyeong-gwon/Desktop/custom_data"
 # dir_list = os.listdir(dir_name)
