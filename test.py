@@ -6,7 +6,7 @@ import argparse
 
 def parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dir", type=str, default = "/Users/gwonsmpro/Downloads/LASER불량이미지/미가공/bottom")
+    parser.add_argument("--dir", type=str, default = "/Users/gwonsmpro/Downloads/LASER불량이미지1/0201 형상이상")
     args = parser.parse_args()
     
     return args
@@ -15,6 +15,7 @@ def parser():
 def main(args):
     # dir_paths = os.listdir(args.dir)
     defect_class = os.listdir(args.dir)
+    
     try :
         defect_class.sort(key=lambda x : int(x.split('.')[0]))
     except:
@@ -35,14 +36,13 @@ def main(args):
     
     print(len(jpg_list))
     print(len(json_list))
-    
     for idx,file in enumerate(jpg_list):
         idx += 1
-        os.rename(f"{str(args.dir)}/{file}", f"{str(args.dir)}/ssol_{idx}_bottom.jpg")
+        os.rename(f"{str(args.dir)}/{file}", f"{str(args.dir)}/abnormal{idx}_bottom.jpg")
     
     for idx,file in enumerate(json_list):
         idx += 1
-        os.rename(f"{str(args.dir)}/{file}", f"{str(args.dir)}/ssol_{idx}_bottom.json")
+        os.rename(f"{str(args.dir)}/{file}", f"{str(args.dir)}/abnormal_{idx}_bottom.json")
         
 if __name__ == "__main__":
     args = parser()
