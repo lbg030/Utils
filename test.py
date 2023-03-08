@@ -6,7 +6,7 @@ import argparse
 
 def parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dir", type=str, default = "/Users/gwonsmpro/Downloads/LASER불량이미지1/0201 형상이상")
+    parser.add_argument("--dir", type=str, default = "/Users/gwonsmpro/Downloads/LASER불량이미지/쏠림/top")
     args = parser.parse_args()
     
     return args
@@ -38,11 +38,11 @@ def main(args):
     print(len(json_list))
     for idx,file in enumerate(jpg_list):
         idx += 1
-        os.rename(f"{str(args.dir)}/{file}", f"{str(args.dir)}/abnormal{idx}_bottom.jpg")
+        os.rename(f"{str(args.dir)}/{file}", f"{str(args.dir)}/ssol_{idx}_top.jpg")
     
     for idx,file in enumerate(json_list):
         idx += 1
-        os.rename(f"{str(args.dir)}/{file}", f"{str(args.dir)}/abnormal_{idx}_bottom.json")
+        os.rename(f"{str(args.dir)}/{file}", f"{str(args.dir)}/ssol_{idx}_top.json")
         
 if __name__ == "__main__":
     args = parser()
