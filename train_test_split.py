@@ -3,87 +3,47 @@ import shutil
 from pathlib import Path 
 import argparse
 
-def createFolder(directory):
-    try:
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-    except OSError:
-        print ('Error: Creating directory. ' +  directory)
+def create_folder(directory):
+    os.makedirs(directory, exist_ok=True)
 
+def split_data(args):
+    defect_classes = os.listdir(args.dir)
 
-#TODO : Valid 까지 split 추가
-#TODO : multi defect에 관해서 한번에 처리할 수 있는 logic 필요
-#TODO : Json 추가
+    for defect in defect_classes:
+        img_paths = [str(path) for path in Path(f"{args.dir}/{defect}").glob("*.png")]
 
-def parser():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--dir", type=str, default = "/home/lbg030/luna/data/Laser")
-    parser.add_argument("--ratio", type=float, default = 0.2, help= "Train과 Test Split 비율")
-    
-    args = parser.parse_args()
-    
-    return args
+        split_point = int(len(img_paths) * args.ratio)
+        train_img_paths = img_paths[split_point:]
+        test_img_paths = img_paths[:split_point]
 
-def main(args):
-    # dir_paths = os.listdir(args.dir)
-    defect_class = os.listdir(args.dir)
-    
-    train_paths = []
-    test_paths = []
-    
-    train_img_dir = f"{args.dir}/train/images"
-    train_label_dir = f"{args.dir}/train/labels"
-    test_img_dir = f"{args.dir}/test/images"
-    test_label_dir = f"{args.dir}/test/labels"
-    
-    createFolder(train_img_dir)
-    createFolder(train_label_dir)
-    createFolder(test_img_dir)
-    createFolder(test_label_dir)
-    
-    
-    print(defect_class)
-    
-    for defect in defect_class:
-        img_paths = []
-        for path in Path(args.dir).glob(f"{defect}/*"):
-            if path.suffix in ['.jpg', '.png']:
-                img_paths.append(str(path))
-                
-        img_paths.sort()
-        
-        split_points = int(len(img_paths) * args.ratio)
-        
-        train_img = img_paths[split_points:]
-        test_img = img_paths[:split_points]
-        
-        train_paths.extend(train_img)
-        test_paths.extend(test_img)
-        
         print(defect)
-        print(len(img_paths))
-        print(len(train_img))
-        print(len(test_img))
-        
-        for file in train_img:
-            json_file = file[:-4] + '.json'
-            txt_file = file[:-4] + '.txt'
-            # shutil.copy(f"{args.dir}/{file}", f"{train_img_dir}")
-            # shutil.copy(f"{args.dir}/{json_file}", f"{train_label_dir}")
-            shutil.copy(f"{file}", f"{train_img_dir}")
-            shutil.copy(f"{json_file}", f"{train_label_dir}")
-            shutil.copy(f"{txt_file}", f"{train_label_dir}")
-            
-        for file in test_img:
-            json_file = file[:-4] + '.json'
-            txt_file = file[:-4] + '.txt'
-            
-            shutil.copy(f"{file}", f"{test_img_dir}")
-            shutil.copy(f"{json_file}", f"{test_label_dir}")
-            shutil.copy(f"{txt_file}", f"{test_label_dir}")
-        
-    
+        print(f"Train files: {len(train_img_paths)}")
+        print(f"Test files: {len(test_img_paths)}")
+
+        copy_files(train_img_paths, f"{args.dir}/train")
+        copy_files(test_img_paths, f"{args.dir}/test")
+
+def copy_files(file_paths, target_dir):
+    img_target_dir = f"{target_dir}/images"
+    label_target_dir = f"{target_dir}/labels"
+
+    create_folder(img_target_dir)
+    create_folder(label_target_dir)
+
+    for file in file_paths:
+        txt_file = file[:-4] + '.txt'
+        shutil.copy(file, img_target_dir)
+        shutil.copy(txt_file, label_target_dir)
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dir", type=str, default="/Users/gwonsmpro/Downloads/pillipse/class_merged_data")
+    parser.add_argument("--ratio", type=float, default=0.2, help="Train and Test split ratio")
+
+    args = parser.parse_args()
+    split_data(args)
+
+    print("Done")
+
 if __name__ == "__main__":
-    args = parser()
-    main(args)
-    print("it's done")
+    main()

@@ -1,49 +1,14 @@
-import os
-import shutil
-from pathlib import Path 
-import argparse
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
 
+options = Options()
+options.add_argument('--incognito') # private mode
+# width of window size should be larger than certain value for access time_btn
+options.add_argument('--window-size=1600,1080')
+options.add_experimental_option("excludeSwitches", ['enable-logging']) # disable unused messages
 
-def parser():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--dir", type=str, default = "/Users/gwonsmpro/Downloads/LASER불량이미지/쏠림/top")
-    args = parser.parse_args()
-    
-    return args
-
-
-def main(args):
-    # dir_paths = os.listdir(args.dir)
-    defect_class = os.listdir(args.dir)
-    
-    try :
-        defect_class.sort(key=lambda x : int(x.split('.')[0]))
-    except:
-        print("C")
-    
-    print(defect_class)    
-    jpg_list = []
-    json_list = []
-    
-    for file in defect_class:
-        if file.endswith('.jpg'):
-            jpg_list.append(file)
-        else:
-            json_list.append(file)
-        
-    # print(jpg_list)
-    # print(json_list)
-    
-    print(len(jpg_list))
-    print(len(json_list))
-    for idx,file in enumerate(jpg_list):
-        idx += 1
-        os.rename(f"{str(args.dir)}/{file}", f"{str(args.dir)}/ssol_{idx}_top.jpg")
-    
-    for idx,file in enumerate(json_list):
-        idx += 1
-        os.rename(f"{str(args.dir)}/{file}", f"{str(args.dir)}/ssol_{idx}_top.json")
-        
-if __name__ == "__main__":
-    args = parser()
-    main(args)

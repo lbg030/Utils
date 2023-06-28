@@ -15,7 +15,7 @@ def createFolder(directory):
 
 def parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dir", type=str, default = "/Users/gwonsmpro/Downloads/LASER불량이미지/쏠림")
+    parser.add_argument("--dir", type=str, default = "/Users/gwonsmpro/Desktop/03.10 불량 이미지/관통")
     
     args = parser.parse_args()
     
@@ -25,7 +25,7 @@ def parser():
 def main(args):
     # dir_paths = os.listdir(args.dir)
     defect_class = os.listdir(args.dir)
-    defect_class.sort()
+    # defect_class.sort()
     
     
     top_list = []
@@ -43,15 +43,15 @@ def main(args):
     for idx, path in enumerate(Path(args.dir).glob("*")):
         if path.suffix in ['.jpg','.png']:
             name = str(path).split("/")[-1].split(".")[0]
-
-            if int(name) < 100:
-                if int(name) % 2 == 0:
-                    shutil.copy(f"{str(path)}", f"{top_path}")
-                else :
-                    shutil.copy(f"{str(path)}", f"{bottom_path}")
+            
+            # if int(name) < 100:
+            if int(name) % 2 == 0:
+                shutil.copy(f"{str(path)}", f"{top_path}")
             else :
-                # if int(name) % 2 == 0:
                 shutil.copy(f"{str(path)}", f"{bottom_path}")
+            # else :
+            #     # if int(name) % 2 == 0:
+            #     shutil.copy(f"{str(path)}", f"{bottom_path}")
                 # else :
                 #     shutil.copy(f"{str(path)}", f"{top_path}")
                     
