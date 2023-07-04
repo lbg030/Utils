@@ -11,7 +11,6 @@ def split_data(args):
 
     for defect in defect_classes:
         img_paths = [str(path) for path in Path(f"{args.dir}/{defect}").glob("*.png")]
-
         split_point = int(len(img_paths) * args.ratio)
         train_img_paths = img_paths[split_point:]
         test_img_paths = img_paths[:split_point]
@@ -37,7 +36,7 @@ def copy_files(file_paths, target_dir):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dir", type=str, default="/Users/gwonsmpro/Downloads/pillipse/class_merged_data")
+    parser.add_argument("--dir", type=str, default="/Users/gwonsmpro/Downloads/pillipse/class_merged_data_copy")
     parser.add_argument("--ratio", type=float, default=0.2, help="Train and Test split ratio")
 
     args = parser.parse_args()
