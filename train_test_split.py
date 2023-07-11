@@ -36,7 +36,7 @@ def copy_files(file_paths, target_dir):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dir", type=str, default="/Users/gwonsmpro/Downloads/pillipse/class_merged_data_copy")
+    parser.add_argument("--dir", type=str, default="/Users/gwonsmpro/Downloads/pillipse/histogram_equal_test")
     parser.add_argument("--ratio", type=float, default=0.2, help="Train and Test split ratio")
 
     args = parser.parse_args()
