@@ -41,7 +41,7 @@ def copy_files(file_paths, target_dir):
         
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dir", type=str, default="/Users/gwonsmpro/Desktop/hc_test_folder")
+    parser.add_argument("--dir", type=str, default="/Users/gwonsmpro/Downloads/pillipse/0822_labeled_pillip")
     parser.add_argument("--ratio", type=float, default=0.2, help="Train and Test split ratio")
 
     args = parser.parse_args()

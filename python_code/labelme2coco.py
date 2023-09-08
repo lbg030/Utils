@@ -12,16 +12,16 @@ from pathlib import Path
 def parse_args():
     parser = argparse.ArgumentParser(description='labelme to coco')
     parser.add_argument('--root',
-                        default = "/Users/gwonsmpro/Downloads/0822_labeled_coco/images",
+                        default = "/Users/gwonsmpro/Downloads/pillipse/0822_labeled_pillip",
                         help='labelme json files folder')
     parser.add_argument('--classes',
-                        default = {'ab' : 0,'bd' : 1,'hb' : 2,'hc' : 3,'sc' : 4,'sn' : 5,'ul': 6},
+                        default = {'ab':0, 'bd':1, 'hb':2, 'hc':3, 'sc':4, 'sn': 5, 'ul':6},
                         help="ex. {'bz': 0, 'jansa': 1, 'penetration': 2}'")
     parser.add_argument('--save_dir',
-                        default='/Users/gwonsmpro/Downloads/pillipse/0822_labeled_coco',
+                        default='/Users/gwonsmpro/Downloads/pillipse/TTA_coco',
                         help='the dir to save')
     parser.add_argument('--split_ratio',
-                        default=0.8,
+                        default=0.2,
                         help='set train split rate')
     
     args = parser.parse_args()
@@ -89,7 +89,8 @@ def labelme_to_coco(args, labelme_files, image_type):
         # Save image
         # image_folder = '/'.join(labelme_folder.split('/')[:-1]) + "/path_to_image"
         # image_path = os.path.join(image_folder, labelme_data["imagePath"])
-        image_path = os.path.join("/Users/gwonsmpro/Downloads/0822_labeled_coco/images", labelme_data['imagePath'])
+        
+        image_path = os.path.join(args.root, labelme_data['imagePath'])
         save_path = os.path.join(args.save_dir, image_type, labelme_data["imagePath"])
         img = cv2.imread(image_path)
         cv2.imwrite(save_path, img)

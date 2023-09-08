@@ -1,6 +1,6 @@
 from glob import glob
 
-base = "/Users/gwonsmpro/Desktop/hc_test_folder"
+base = "/Users/gwonsmpro/Downloads/pillipse/0822_labeled_pillip"
 
 img_list = glob(f'{base}/train/images/*.png') # 트레인 이미지 경로
 val_img_list = glob(f'{base}/test/images/*.png') # 테스트 이미지 경로
